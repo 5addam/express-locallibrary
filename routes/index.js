@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/admin', function(req, res, next) {
+  res.send("You're not authorized!!");
+});
+
 module.exports = router;
