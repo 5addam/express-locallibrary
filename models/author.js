@@ -1,4 +1,5 @@
 const mongoose  = require("mongoose");
+const { DateTime } = require('luxon');
 const Schema = mongoose.Schema
 
 const AuthorSchema = new Schema(
@@ -13,22 +14,35 @@ const AuthorSchema = new Schema(
 // Virtual for author's full name
 AuthorSchema
 .virtual('name')
-.get(() =>{
+.get(function(){ 
     return this.family_name + ', ' + this.first_name;
 });
 
 // Virtual for author's lifespan
 AuthorSchema
 .virtual('lifespan')
-.get(() =>{
-    return (this.date_of_death.getYear() - this.date_of_birth.getYear()).toString();
+.get(function(){
+    return this.date_of_birth ? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED) : '';
+    // return (this.date_of_death.getYear() - this.date_of_birth.getYear()).toString(); 
+});
+
+AuthorSchema
+.virtual('formatted_date_of_birth')
+.get(function(){
+    return this.date_of_birth ? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED) : '';
+});
+
+AuthorSchema
+.virtual('formatted_date_of_death')
+.get(function(){
+    return this.date_of_death ? DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED) : '';
 });
 
 // Virtual for author's URL
 AuthorSchema
 .virtual('url')
-.get(() => {
-    return '/catalog/author/' + this._id;
+.get(function() {
+    return'/catalog/author/' + this._id; 
 });
 
 // Export model
