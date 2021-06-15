@@ -15,7 +15,7 @@ block content
                     if book 
                         option(value=author._id selected=(author._id.toString()===book.author._id.toString() ? 'selected' : false) ) #{author.name} 
                     else 
-                        option(value="author._id") #{author.name}
+                        option(value=author._id) #{author.name}
         div.form-group
             label(for='summary') Summary: 
             textarea#summary.form-control(type="textarea", placeholder="Summary" name ="summary" required="true") #{undefined===book ? '' : book.summary}
