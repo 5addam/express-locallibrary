@@ -16,7 +16,7 @@ block content
         else 
             span.text-warning #{book_instance.status}
     
-    form(method='' action='') 
+    form(method='POST' action='') 
         div.form-group
             input#bookinstanceId(type='hidden' name='bookinstanceId' value=book_instance._id required='ture')
         button.btn.btn-primary(type='submit') Delete 
